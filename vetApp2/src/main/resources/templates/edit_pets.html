@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veterinary App</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+	crossorigin="anonymous">
+<style>
+nav a {
+	margin-left: 15px;
+}
+.welcome{
+background-color:black;
+color:white;
+}
+</style>
+</head>
+<body>
+
+	<div class="welcome" sec:authorize="isAuthenticated()">
+		Welcome <b><span sec:authentication="name">Username</span></b> &nbsp;
+		<span sec:authentication="principal.authorities">Roles</span>
+		<form th:action="@{logout}" method="post">
+			<input type="submit" value="logout">
+		</form>
+	</div>
+
+	<div th:replace="~{fragments/navigation :: navigation}"></div>
+	<br>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div
+				class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class="text-center">Update Pet</h1>
+				<div class="card-body">
+					<form th:action="@{/pets/{id} (id=${pets.id} )}"
+						th:object="${pets}" method="POST">
+						<div class="form-group">
+							<label>Pet Owner</label> <input type="text" name="petowner"
+								th:field="*{petowner}" class="form-control"
+								placeholder="Enter Pet Owner" maxlength="100" /> <label>Pet
+								Kind</label> <input type="text" name="kind" th:field="*{kind}"
+								class="form-control" placeholder="Enter Pet Kind"
+								maxlength="100" /> <label>Pet Breed</label> <input
+								type="text" name="breed" th:field="*{breed}"
+								class="form-control" placeholder="Enter Pet Breed"
+								maxlength="100" /> <label>Pet Name</label> <input
+								type="text" name="name" th:field="*{name}" class="form-control"
+								placeholder="Enter Pet Name" maxlength="100" /> <label>Pet
+								Age</label> <input type="text" name="age" th:field="*{age}"
+								class="form-control" placeholder="Enter Pet Age" maxlength="4" />
+
+							<label>Pet Explanation</label> <input type="text"
+								name="explanation" th:field="*{explanation}"
+								class="form-control" placeholder="Enter Pet Explanation"
+								maxlength="100" />
+						</div>
+
+						<div class="box-footer">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>
